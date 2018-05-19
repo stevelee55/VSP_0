@@ -15,6 +15,7 @@
 		9D4A6CA920AC837500080C0D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D4A6CA720AC837500080C0D /* LaunchScreen.storyboard */; };
 		9D4A6CB420AC837600080C0D /* VSP_0Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4A6CB320AC837600080C0D /* VSP_0Tests.swift */; };
 		9D4A6CBF20AC837600080C0D /* VSP_0UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4A6CBE20AC837600080C0D /* VSP_0UITests.swift */; };
+		9D4A6CCF20AE184200080C0D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4A6CCE20AE184100080C0D /* CameraViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		9D4A6CBA20AC837600080C0D /* VSP_0UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VSP_0UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D4A6CBE20AC837600080C0D /* VSP_0UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VSP_0UITests.swift; sourceTree = "<group>"; };
 		9D4A6CC020AC837600080C0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9D4A6CCE20AE184100080C0D /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 			children = (
 				9D4A6C9C20AC837400080C0D /* AppDelegate.swift */,
 				9D4A6C9E20AC837400080C0D /* FirstViewController.swift */,
+				9D4A6CCE20AE184100080C0D /* CameraViewController.swift */,
 				9D4A6CA020AC837400080C0D /* SecondViewController.swift */,
 				9D4A6CA220AC837400080C0D /* Main.storyboard */,
 				9D4A6CA520AC837500080C0D /* Assets.xcassets */,
@@ -260,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D4A6CA120AC837400080C0D /* SecondViewController.swift in Sources */,
+				9D4A6CCF20AE184200080C0D /* CameraViewController.swift in Sources */,
 				9D4A6C9D20AC837400080C0D /* AppDelegate.swift in Sources */,
 				9D4A6C9F20AC837400080C0D /* FirstViewController.swift in Sources */,
 			);

@@ -33,6 +33,16 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R1f-Lf-ZvU" userLabel="Settings Button Outlet">
+                                <rect key="frame" x="291" y="537" width="65" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Settings"/>
+                                <state key="selected" image="Settings_Pressed"/>
+                                <state key="highlighted" image="Settings_Pressed"/>
+                                <connections>
+                                    <action selector="launchSettingsButton:" destination="9pv-A4-QxB" eventType="touchUpInside" id="YjJ-Rs-fNg"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QxR-k5-vFJ">
                                 <rect key="frame" x="291" y="537" width="65" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -41,6 +51,7 @@
                                 <state key="highlighted" image="Camera_Pressed"/>
                                 <connections>
                                     <action selector="actionButton:" destination="9pv-A4-QxB" eventType="touchUpInside" id="xul-FH-8zI"/>
+                                    <segue destination="8jc-TN-5h2" kind="presentation" id="VG0-Ub-Zpm"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -50,11 +61,42 @@
                     <tabBarItem key="tabBarItem" title="OG" image="first" id="acW-dT-cKf"/>
                     <connections>
                         <outlet property="actionButtonOutlet" destination="QxR-k5-vFJ" id="Qdw-rz-uro"/>
+                        <outlet property="settingsButtonOutlet" destination="R1f-Lf-ZvU" id="aUQ-SW-C9h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="749.60000000000002" y="-320.68965517241384"/>
+        </scene>
+        <!--Camera View Controller-->
+        <scene sceneID="cS2-g6-8Jx">
+            <objects>
+                <viewController id="8jc-TN-5h2" customClass="CameraViewController" customModule="VSP_0" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Pca-Kg-BQo">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i8R-gj-YsP">
+                                <rect key="frame" x="151" y="575" width="72" height="72"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="Record Button"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TZQ-kw-Ddz">
+                                <rect key="frame" x="151" y="20" width="72" height="72"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="Recording Button"/>
+                                <connections>
+                                    <action selector="dismiss:" destination="8jc-TN-5h2" eventType="touchUpInside" id="pWo-oZ-Ei1"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="zls-XJ-zzL"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mxu-p7-Bze" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1800.8" y="-61.619190404797607"/>
         </scene>
         <!--Lambda-->
         <scene sceneID="wg7-f3-ORb">
@@ -115,6 +157,10 @@
     <resources>
         <image name="Camera" width="89" height="89"/>
         <image name="Camera_Pressed" width="89" height="89"/>
+        <image name="Record Button" width="151" height="151"/>
+        <image name="Recording Button" width="151" height="151"/>
+        <image name="Settings" width="93" height="93"/>
+        <image name="Settings_Pressed" width="93" height="93"/>
         <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
     </resources>
