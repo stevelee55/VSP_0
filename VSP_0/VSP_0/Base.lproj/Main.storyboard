@@ -51,7 +51,6 @@
                                 <state key="highlighted" image="Camera_Pressed"/>
                                 <connections>
                                     <action selector="actionButton:" destination="9pv-A4-QxB" eventType="touchUpInside" id="xul-FH-8zI"/>
-                                    <segue destination="8jc-TN-5h2" kind="presentation" id="VG0-Ub-Zpm"/>
                                 </connections>
                             </button>
                         </subviews>

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 class FirstViewController: UIViewController {
 
@@ -23,7 +24,6 @@ class FirstViewController: UIViewController {
         
         //Creating shadows for the action button.
         setShadowsOnGivenButton(button: actionButtonOutlet)
-        
     }
     
 /*Setup Functions*/
@@ -39,6 +39,30 @@ class FirstViewController: UIViewController {
 /*Button Functions*/
     //Launching Camera Button.
     @IBAction func actionButton(_ sender: Any) {
+        
+        /*UIImagePickerController Method*/
+        //Checking to see if the camera is available.
+        if (UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)) {
+            //Instance of uiimage picker controller, which is used
+            //for setting camera settings
+            let picker = UIImagePickerController()
+            picker.videoQuality = .typeHigh
+            let mediaTypesArray:[String] = [kUTTypeMovie as String]
+            picker.mediaTypes = mediaTypesArray
+            picker.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
+            picker.sourceType = UIImagePickerControllerSourceType.camera
+            picker.allowsEditing = true
+            self.present(picker, animated: true, completion: nil)
+        } else {
+            //This part may not be needed if the camera automatically puts up
+            //the "Camera not available message"
+            let alert = UIAlertController(title: "VSP",
+                                          message: "Camera not available",
+                                          preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            
+        }
         
         //Keeping track of if the action has been pressed or not and creating the
         //animation according to it.
