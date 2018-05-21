@@ -9,11 +9,17 @@
 import UIKit
 import MobileCoreServices
 
-class FirstViewController: UIViewController {
+class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate {
 
     //Variables.
     var actionButtonActivated = false
     var buttonsOGLocation: CGPoint! = CGPoint(x: 291, y: 537)
+    
+    //UIScrollView
+    @IBOutlet weak var tableViewOfVideos: UITableView!
+    //Cell: Custom for accessing a video clip.
+    //Should have thumbnail, title, play, lambda, and more info(i) buttons.
+
     
     //Buttons.
     @IBOutlet weak var actionButtonOutlet: UIButton!
@@ -24,6 +30,10 @@ class FirstViewController: UIViewController {
         
         //Creating shadows for the action button.
         setShadowsOnGivenButton(button: actionButtonOutlet)
+        
+        //Setting table view delegate and data source.
+//        tableViewOfVideos.delegate = self
+//        tableViewOfVideos.dataSource = self
     }
     
 /*Setup Functions*/
@@ -33,8 +43,6 @@ class FirstViewController: UIViewController {
         button.layer.shadowRadius = 7
         button.layer.shadowOpacity = 0.5
     }
-    
-    
     
 /*Button Functions*/
     //Launching Camera Button.
@@ -97,10 +105,16 @@ class FirstViewController: UIViewController {
     //Launching Settings Button.
     @IBAction func launchSettingsButton(_ sender: Any) {
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+/*UIScrollView Delegate functions*/
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
+        cell.textLabel?.text = "Hello"
+        return cell
     }
     
 /*Animations*/
@@ -114,6 +128,13 @@ class FirstViewController: UIViewController {
     func revertAnimation() {
         
         
+    }
+    
+    
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
 }
 
