@@ -16,6 +16,8 @@
 		9D4A6CB420AC837600080C0D /* VSP_0Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4A6CB320AC837600080C0D /* VSP_0Tests.swift */; };
 		9D4A6CBF20AC837600080C0D /* VSP_0UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4A6CBE20AC837600080C0D /* VSP_0UITests.swift */; };
 		9D4A6CCF20AE184200080C0D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4A6CCE20AE184100080C0D /* CameraViewController.swift */; };
+		9D4A6D0E20B4977A00080C0D /* VideoClipOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4A6D0D20B4977A00080C0D /* VideoClipOptionsViewController.swift */; };
+		9D4A6D1020B4981C00080C0D /* VideoClipCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4A6D0F20B4981C00080C0D /* VideoClipCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		9D4A6CBE20AC837600080C0D /* VSP_0UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VSP_0UITests.swift; sourceTree = "<group>"; };
 		9D4A6CC020AC837600080C0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D4A6CCE20AE184100080C0D /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		9D4A6D0D20B4977A00080C0D /* VideoClipOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoClipOptionsViewController.swift; sourceTree = "<group>"; };
+		9D4A6D0F20B4981C00080C0D /* VideoClipCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoClipCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,13 +106,13 @@
 			isa = PBXGroup;
 			children = (
 				9D4A6C9C20AC837400080C0D /* AppDelegate.swift */,
-				9D4A6C9E20AC837400080C0D /* FirstViewController.swift */,
-				9D4A6CCE20AE184100080C0D /* CameraViewController.swift */,
-				9D4A6CA020AC837400080C0D /* SecondViewController.swift */,
+				9D4A6D1120B498C600080C0D /* OG View */,
+				9D4A6D1220B498DF00080C0D /* Lambda View */,
 				9D4A6CA220AC837400080C0D /* Main.storyboard */,
 				9D4A6CA520AC837500080C0D /* Assets.xcassets */,
 				9D4A6CA720AC837500080C0D /* LaunchScreen.storyboard */,
 				9D4A6CAA20AC837500080C0D /* Info.plist */,
+				9D4A6CCE20AE184100080C0D /* CameraViewController.swift */,
 			);
 			path = VSP_0;
 			sourceTree = "<group>";
@@ -129,6 +133,24 @@
 				9D4A6CC020AC837600080C0D /* Info.plist */,
 			);
 			path = VSP_0UITests;
+			sourceTree = "<group>";
+		};
+		9D4A6D1120B498C600080C0D /* OG View */ = {
+			isa = PBXGroup;
+			children = (
+				9D4A6C9E20AC837400080C0D /* FirstViewController.swift */,
+				9D4A6D0D20B4977A00080C0D /* VideoClipOptionsViewController.swift */,
+				9D4A6D0F20B4981C00080C0D /* VideoClipCell.swift */,
+			);
+			path = "OG View";
+			sourceTree = "<group>";
+		};
+		9D4A6D1220B498DF00080C0D /* Lambda View */ = {
+			isa = PBXGroup;
+			children = (
+				9D4A6CA020AC837400080C0D /* SecondViewController.swift */,
+			);
+			path = "Lambda View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,8 +285,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D4A6CA120AC837400080C0D /* SecondViewController.swift in Sources */,
+				9D4A6D1020B4981C00080C0D /* VideoClipCell.swift in Sources */,
 				9D4A6CCF20AE184200080C0D /* CameraViewController.swift in Sources */,
 				9D4A6C9D20AC837400080C0D /* AppDelegate.swift in Sources */,
+				9D4A6D0E20B4977A00080C0D /* VideoClipOptionsViewController.swift in Sources */,
 				9D4A6C9F20AC837400080C0D /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -449,7 +473,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.stevesl.VSP-0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -468,7 +492,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.stevesl.VSP-0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

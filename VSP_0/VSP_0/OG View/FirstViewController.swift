@@ -69,7 +69,6 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
                                           preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
-            
         }
         
         //Keeping track of if the action has been pressed or not and creating the
@@ -112,9 +111,29 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
-        cell.textLabel?.text = "Hello"
+        let cell = tableViewOfVideos.dequeueReusableCell(withIdentifier: "cell") as! VideoClipCell
+        cell.accessoryType = .disclosureIndicator
+        cell.thumbnail.image = #imageLiteral(resourceName: "Camera")
+        cell.videoTitle.text = "Video 331"
+        cell.recordedDate.text = "6-5-18"
+        cell.videoLengthTime.text = "3:44"
         return cell
+    }
+    
+/*Camera Functions*/
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        let mediaType = info[UIImagePickerControllerMediaType] as! String
+        
+        if mediaType == String(kUTTypeVideo) || mediaType == String(kUTTypeMovie) {
+            let videoURL = info[UIImagePickerControllerMediaURL] as! String
+            
+            UISaveVideoAtPathToSavedPhotosAlbum(videoURL, nil, nil, nil)
+//            //Saving the video.
+//            let videoData = NSData(contentsOf: videoURL as! URL)
+//            videoData.write
+        }
     }
     
 /*Animations*/
