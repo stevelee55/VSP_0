@@ -9,11 +9,12 @@
 import UIKit
 import MobileCoreServices
 
-class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate {
+class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     //Variables.
     var actionButtonActivated = false
     var buttonsOGLocation: CGPoint! = CGPoint(x: 291, y: 537)
+    let picker: UIImagePickerController = UIImagePickerController()
     
     //UIScrollView
     @IBOutlet weak var tableViewOfVideos: UITableView!
@@ -51,13 +52,11 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         /*UIImagePickerController Method*/
         //Checking to see if the camera is available.
         if (UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)) {
-            //Instance of uiimage picker controller, which is used
-            //for setting camera settings
-            let picker = UIImagePickerController()
+            //Setting camera settings.
             picker.videoQuality = .typeHigh
             let mediaTypesArray:[String] = [kUTTypeMovie as String]
             picker.mediaTypes = mediaTypesArray
-            picker.delegate = self as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
+            picker.delegate = self
             picker.sourceType = UIImagePickerControllerSourceType.camera
             picker.allowsEditing = true
             self.present(picker, animated: true, completion: nil)
@@ -124,16 +123,22 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
-        let mediaType = info[UIImagePickerControllerMediaType] as! String
-        
-        if mediaType == String(kUTTypeVideo) || mediaType == String(kUTTypeMovie) {
-            let videoURL = info[UIImagePickerControllerMediaURL] as! String
-            
-            UISaveVideoAtPathToSavedPhotosAlbum(videoURL, nil, nil, nil)
-//            //Saving the video.
-//            let videoData = NSData(contentsOf: videoURL as! URL)
-//            videoData.write
+        //Checking to see if the video was taken and has a url.
+        if let videoURL = info[UIImagePickerControllerMediaURL] as? NSURL {
+            //Saves to the main photo album.
+            UISaveVideoAtPathToSavedPhotosAlbum(videoURL.relativePath!, self, nil, nil)
+            //There is url
+            print("WORKS!")
         }
+        
+        //Doing something when the image picker view is dismissed.
+        dismiss(animated: true, completion: {
+            let alert = UIAlertController(title: "VSP",
+                                          message: "Video Saved!",
+                                          preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        })
     }
     
 /*Animations*/
