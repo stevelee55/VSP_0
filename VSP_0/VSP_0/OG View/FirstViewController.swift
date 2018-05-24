@@ -20,15 +20,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     let picker: UIImagePickerController = UIImagePickerController()
     
     //Data components.
-    //Video Metadata Structure
-    struct VideoMetaData {
-        var title: String = "Video Title"
-        var recordedDate: String = "01-01-18"
-        var videoDuration: String = "3:43"
-        var thumbnail: UIImage = #imageLiteral(resourceName: "Record Button")
-        var videoURLPath: NSURL = NSURL()
-        var orientation: String = "n/a"
-    }
+    
     //Dictionary that holds videos. The lookup table is filename : UIImage.
     //Difference between NSMutableDictionary and Dictionary is that
     //NSMutableDictionary is a reference semantic, which, I think, means that
@@ -84,8 +76,10 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let defaults = UserDefaults()
         //Checking to see if any data is present in the system and if there is,
         //store the data to the videosMetaData dictionary.
-        if let data = defaults.array(forKey: "VSP_Data_VideosMetaData") as? [VideoMetaData]{
-            videosMetaData = data
+        if let data = defaults.object(forKey: "VSP_Data_VideosMetaData") as? Data {
+            //Unarchieving it.
+            let unarchievedData = NSKeyedUnarchiver.unarchiveObject(with: data) as! [VideoMetaData]
+            videosMetaData = unarchievedData
         } else {
             //Data doesn't exist.
             print("Data Doesn't Exist")
@@ -93,13 +87,18 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
 
 /*Data Functions*/
+    
+    //Saving the video for the long term.
     func saveVideosMetaDataToTheSystem() {
+        //Archieving into a Data type.
+        let data = NSKeyedArchiver.archivedData(withRootObject: videosMetaData);
         //Be able to save data when the app quits randomly or app is closed.
         let defaults = UserDefaults()
-        defaults.setValue(videosMetaData, forUndefinedKey: "VSP_Data_VideosMetaData")
+        defaults.set(data, forKey: "VSP_Data_VideosMetaData")
         defaults.synchronize()
     }
     
+    //Saving the video that was just recorded.
     func saveVideoAndItsMetaData(videoURL: NSURL) {
         
         //Ask user for the title of the video. Could be a pop-up windown like
@@ -111,6 +110,12 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         //Getting the orientation of the video.
         var orientation = "Portrait"
+        
+        //Getting the date of the video.
+        let date = sourceAsset.creationDate?.dateValue
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy"
+        let formattedDate = dateFormatter.string(from: date!)
     
         //Getting the thumbnail of the video.
         let thumbnailGenerator = AVAssetImageGenerator(asset: AVAsset(url: videoURL as URL))
@@ -140,17 +145,26 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         //Creating a new video meta data instance and adding it to the videos
         //metadata array.
-        var videoMetaDataToSave = VideoMetaData()
+        let videoMetaDataToSave = VideoMetaData()
         //MetaData below.
         videoMetaDataToSave.title = "Video titg"
         videoMetaDataToSave.videoDuration = convertIntToStringHoursMinutesAndSeconds(seconds: duration)
         videoMetaDataToSave.thumbnail = thumbnail
         videoMetaDataToSave.orientation = orientation
+        videoMetaDataToSave.recordedDate = formattedDate
+        videoMetaDataToSave.videoURLPath = videoURL
+        
+        print("\(videoURL)")
+        
         //Appending to the metadata array.
         videosMetaData.append(videoMetaDataToSave)
         //Updating the tableview with new data.
         tableViewOfVideos.reloadData()
+        
+        saveVideosMetaDataToTheSystem()
     }
+    
+    /*Helper Functions*/
     
     //This is for converting seconds to hr:min:seconds format.
     func convertIntToStringHoursMinutesAndSeconds (seconds : Double) -> String {
@@ -259,6 +273,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.videoTitle.text = videosMetaData[indexPath.row].title
         cell.recordedDate.text = videosMetaData[indexPath.row].recordedDate
         cell.videoLengthTime.text = videosMetaData[indexPath.row].videoDuration
+        cell.recordedDate.text = String(videosMetaData[indexPath.row].videoURLPath.description)
         //Seting the orientation indicator image.
         if videosMetaData[indexPath.row].orientation == "Portrait" {
             cell.orientationIndicator.image = #imageLiteral(resourceName: "portrait")
@@ -319,18 +334,13 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
 /*Animations*/
     func spreadOutAnimation() {
-        
         //Animations: Camera button going up, settings button going left,
         //and the settings and the cancel buttons' opacity going from 0 to 1.
-        
         
     }
     func revertAnimation() {
         
-        
     }
-    
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

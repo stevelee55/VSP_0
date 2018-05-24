@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D38067C20B7584000F5A0A3 /* VideoMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D38067B20B7584000F5A0A3 /* VideoMetaData.swift */; };
 		9D4A6C9D20AC837400080C0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4A6C9C20AC837400080C0D /* AppDelegate.swift */; };
 		9D4A6C9F20AC837400080C0D /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4A6C9E20AC837400080C0D /* FirstViewController.swift */; };
 		9D4A6CA120AC837400080C0D /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4A6CA020AC837400080C0D /* SecondViewController.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9D38067B20B7584000F5A0A3 /* VideoMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMetaData.swift; sourceTree = "<group>"; };
 		9D4A6C9920AC837400080C0D /* VSP_0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VSP_0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D4A6C9C20AC837400080C0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9D4A6C9E20AC837400080C0D /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				9D4A6C9E20AC837400080C0D /* FirstViewController.swift */,
+				9D38067B20B7584000F5A0A3 /* VideoMetaData.swift */,
 				9D4A6D0D20B4977A00080C0D /* VideoClipOptionsViewController.swift */,
 				9D4A6D0F20B4981C00080C0D /* VideoClipCell.swift */,
 			);
@@ -284,6 +287,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D38067C20B7584000F5A0A3 /* VideoMetaData.swift in Sources */,
 				9D4A6CA120AC837400080C0D /* SecondViewController.swift in Sources */,
 				9D4A6D1020B4981C00080C0D /* VideoClipCell.swift in Sources */,
 				9D4A6CCF20AE184200080C0D /* CameraViewController.swift in Sources */,
