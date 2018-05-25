@@ -45,7 +45,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
                                 shadowWidth: 0,
                                 shadowHeight: 5,
                                 shadowColor: UIColor.black.cgColor,
-                                shadowRadius: 12,
+                                shadowRadius: 8,
                                 shadowOpacity: 0.4)
         
         //Using the list of urls and videos, store the list of thumbnails and
