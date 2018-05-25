@@ -12,6 +12,9 @@ import AVKit
 
 class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+    //View Controller's model.
+    let model = VideoAppModel()
+    
     //Variables.
     var actionButtonActivated = false
     var buttonsOGLocation: CGPoint! = CGPoint(x: 291, y: 537)
@@ -19,24 +22,14 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     //Camera component.
     let picker: UIImagePickerController = UIImagePickerController()
     
-    //Data components.
-    
-    //Dictionary that holds videos. The lookup table is filename : UIImage.
-    //Difference between NSMutableDictionary and Dictionary is that
-    //NSMutableDictionary is a reference semantic, which, I think, means that
-    //
-    var videosMetaData: [VideoMetaData] = []
-    
     //UIScrollView
     @IBOutlet weak var tableViewOfVideos: UITableView!
     //Cell: Custom for accessing a video clip.
     //Should have thumbnail, title, play, lambda, and more info(i) buttons.
 
-    
     //Buttons.
     @IBOutlet weak var actionButtonOutlet: UIButton!
     @IBOutlet weak var settingsButtonOutlet: UIButton!
-    
     
     //Algorithm could be to either: export and send data to lambda as
     //image frames, or as video clips.
@@ -60,7 +53,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         //up data that's needed for tableviewcontroller. This should not store
         //the actual images, but the images/thumbnails' url names in strings, which
         //can be used to look up the images in the dictionary.
-        loadVideosMetaData()
+        model.loadVideosMetaData()
         
     }
     
@@ -71,131 +64,6 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         button.layer.shadowRadius = 7
         button.layer.shadowOpacity = 0.5
     }
-    
-    func loadVideosMetaData() {
-        let defaults = UserDefaults()
-        //Checking to see if any data is present in the system and if there is,
-        //store the data to the videosMetaData dictionary.
-        if let data = defaults.object(forKey: "VSP_Data_VideosMetaData") as? Data {
-            //Unarchieving it.
-            let unarchievedData = NSKeyedUnarchiver.unarchiveObject(with: data) as! [VideoMetaData]
-            videosMetaData = unarchievedData
-        } else {
-            //Data doesn't exist.
-            print("Data Doesn't Exist")
-        }
-    }
-
-/*Data Functions*/
-    
-    //Saving the video for the long term.
-    func saveVideosMetaDataToTheSystem() {
-        //Archieving into a Data type.
-        let data = NSKeyedArchiver.archivedData(withRootObject: videosMetaData);
-        //Be able to save data when the app quits randomly or app is closed.
-        let defaults = UserDefaults()
-        defaults.set(data, forKey: "VSP_Data_VideosMetaData")
-        defaults.synchronize()
-    }
-    
-    //Saving the video that was just recorded.
-    func saveVideoAndItsMetaData(videoURL: NSURL) {
-        
-        //Ask user for the title of the video. Could be a pop-up windown like
-        //vnc asking for an ip address before connecting to anything.
-        
-        //Getting the duration of video.
-        let sourceAsset = AVURLAsset(url: videoURL as URL)
-        let duration = sourceAsset.duration.seconds
-        
-        //Getting the orientation of the video.
-        var orientation = "Portrait"
-        
-        //Getting the date of the video.
-        let date = sourceAsset.creationDate?.dateValue
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy"
-        let formattedDate = dateFormatter.string(from: date!)
-    
-        //Getting the thumbnail of the video.
-        let thumbnailGenerator = AVAssetImageGenerator(asset: AVAsset(url: videoURL as URL))
-        let frameTimeStart = 3
-        let frameLocaion = 1
-        var thumbnail = #imageLiteral(resourceName: "Record Button")
-        do {
-            //Checking to see if the frame is valid. If not, the thumbnail
-            //stays on the default image.
-            //For getting the correct orientation.
-            thumbnailGenerator.appliesPreferredTrackTransform = true
-            let frameRef = try thumbnailGenerator.copyCGImage(at: CMTimeMake(Int64(frameTimeStart),
-                                                                             Int32(frameLocaion)), actualTime: nil)
-            //Determining what the orientation of the video is based on the
-            //orientation of the thumbnail that was taken.
-            if !isPortrait(width: frameRef.width, height: frameRef.height) {
-                orientation = "Landscape"
-            }
-            //Getting the initial uiimage.
-            thumbnail = UIImage(cgImage: frameRef)
-            thumbnail = imageWithImage(image: thumbnail, newSize: CGSize(width: 126.22, height: 71))
-            
-            
-        } catch {
-            print("Frame cannot be captured.")
-        }
-        
-        //Creating a new video meta data instance and adding it to the videos
-        //metadata array.
-        let videoMetaDataToSave = VideoMetaData()
-        //MetaData below.
-        videoMetaDataToSave.title = "Video titg"
-        videoMetaDataToSave.videoDuration = convertIntToStringHoursMinutesAndSeconds(seconds: duration)
-        videoMetaDataToSave.thumbnail = thumbnail
-        videoMetaDataToSave.orientation = orientation
-        videoMetaDataToSave.recordedDate = formattedDate
-        videoMetaDataToSave.videoURLPath = videoURL
-        
-        print("\(videoURL)")
-        
-        //Appending to the metadata array.
-        videosMetaData.append(videoMetaDataToSave)
-        //Updating the tableview with new data.
-        tableViewOfVideos.reloadData()
-        
-        saveVideosMetaDataToTheSystem()
-    }
-    
-    /*Helper Functions*/
-    
-    //This is for converting seconds to hr:min:seconds format.
-    func convertIntToStringHoursMinutesAndSeconds (seconds : Double) -> String {
-        let duration: TimeInterval = seconds
-        //Calculating hours, minutes, and seconds from the passed in seconds.
-        let s: Int = Int(duration) % 60
-        let m: Int = Int(duration) / 60
-        let h: Int = Int(duration) / 3600
-        //Formatting it. Still not sure how this works; string's function probs?
-        let formattedDuration = String(format: "%02d:%02d:%02d", h, m, s)
-        return formattedDuration
-    }
-    
-    //Resizes the passed in image.
-    func imageWithImage(image: UIImage, newSize: CGSize) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
-        image.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
-        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return newImage
-    }
-    
-    //Determining if the image is portrait or landscape.
-    func isPortrait(width: Int, height: Int) -> Bool {
-        //If the width is greater than height, then it's a landscape.
-        if (width > height) {
-            return false
-        }
-        return true
-    }
-
     
 /*Button Functions*/
     //Launching Camera Button.
@@ -259,27 +127,29 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
 /*UIScrollView Delegate functions*/
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return videosMetaData.count
+        return model.videosMetaData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         //Reusable cell that is about to be loaded with new information and data
         //and used to be presented on the table view.
         let cell = tableViewOfVideos.dequeueReusableCell(withIdentifier: "cell") as! VideoClipCell
         //This sets the arrow thingy on the right edge of the tableviewcell.
         cell.accessoryType = .disclosureIndicator
         //Setting the data for the cell based on the array of videometadata.
-        cell.thumbnail.image = videosMetaData[indexPath.row].thumbnail
-        cell.videoTitle.text = videosMetaData[indexPath.row].title
-        cell.recordedDate.text = videosMetaData[indexPath.row].recordedDate
-        cell.videoLengthTime.text = videosMetaData[indexPath.row].videoDuration
-        cell.recordedDate.text = String(videosMetaData[indexPath.row].videoURLPath.description)
+        cell.thumbnail.image = model.videosMetaData[indexPath.row].thumbnail
+        cell.videoTitle.text = model.videosMetaData[indexPath.row].title
+        cell.recordedDate.text = model.videosMetaData[indexPath.row].recordedDate
+        cell.videoLengthTime.text = model.videosMetaData[indexPath.row].videoDuration
+        cell.recordedDate.text = model.videosMetaData[indexPath.row].recordedDate
         //Seting the orientation indicator image.
-        if videosMetaData[indexPath.row].orientation == "Portrait" {
+        if model.videosMetaData[indexPath.row].orientation == "Portrait" {
             cell.orientationIndicator.image = #imageLiteral(resourceName: "portrait")
         } else {
             cell.orientationIndicator.image = #imageLiteral(resourceName: "landscape")
         }
+        cell.setEditing(true, animated: true)
         
         return cell
     }
@@ -296,15 +166,18 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             //Saving the video URL for storing and later playback.
             savedVideoURL = videoURL
             //Saving the video and the url and other metadata of the video to the
-            //system data.
-            saveVideoAndItsMetaData(videoURL: savedVideoURL!)
-            //saveVideosMetaDataToTheSystem()
+            //system data, but the job is done by the model.
+            model.saveVideoAndItsMetaData(videoURL: savedVideoURL!)
         }
-        
-        
         
         //Doing something when the image picker view is dismissed.
         dismiss(animated: true, completion: {
+            
+            //Reload data for the tableview.
+            self.tableViewOfVideos.reloadData()
+            
+            //Creating the alert for the user to tell them that the video has been
+            //saved.
             let alert = UIAlertController(title: "VSP",
                                           message: "Video Saved!",
                                           preferredStyle: UIAlertControllerStyle.alert)
