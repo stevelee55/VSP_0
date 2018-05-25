@@ -41,7 +41,12 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         super.viewDidLoad()
         
         //Creating shadows for the action button.
-        setShadowsOnGivenButton(button: actionButtonOutlet)
+        setShadowsOnGivenButton(button: actionButtonOutlet,
+                                shadowWidth: 0,
+                                shadowHeight: 5,
+                                shadowColor: UIColor.black.cgColor,
+                                shadowRadius: 12,
+                                shadowOpacity: 0.4)
         
         //Using the list of urls and videos, store the list of thumbnails and
         //save them in a dictionary (file name/path : image)
@@ -58,11 +63,14 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
 /*Setup Functions*/
-    func setShadowsOnGivenButton(button: UIButton) {
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOffset = CGSize(width: 0, height: 5)
-        button.layer.shadowRadius = 7
-        button.layer.shadowOpacity = 0.5
+    //Setting the shadow for the uibutton that is passed in. This can be reused
+    //for many more.
+    func setShadowsOnGivenButton(button: UIButton, shadowWidth: Int, shadowHeight: Int,
+                                 shadowColor: CGColor, shadowRadius: CGFloat, shadowOpacity: Float) {
+        button.layer.shadowColor = shadowColor
+        button.layer.shadowOffset = CGSize(width: shadowWidth, height: shadowHeight)
+        button.layer.shadowRadius = shadowRadius
+        button.layer.shadowOpacity = shadowOpacity
     }
     
 /*Button Functions*/
@@ -137,7 +145,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let cell = tableViewOfVideos.dequeueReusableCell(withIdentifier: "cell") as! VideoClipCell
         //This sets the arrow thingy on the right edge of the tableviewcell.
         cell.accessoryType = .disclosureIndicator
-        //Setting the data for the cell based on the array of videometadata.
+        //Setting the data for the cell with the videometadata.
         cell.thumbnail.image = model.videosMetaData[indexPath.row].thumbnail
         cell.videoTitle.text = model.videosMetaData[indexPath.row].title
         cell.recordedDate.text = model.videosMetaData[indexPath.row].recordedDate
@@ -149,7 +157,9 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         } else {
             cell.orientationIndicator.image = #imageLiteral(resourceName: "landscape")
         }
-        cell.setEditing(true, animated: true)
+        
+        //This really doesn't do much.
+        //cell.setEditing(true, animated: true)
         
         return cell
     }
@@ -188,7 +198,6 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             //Storing video and its thumbanil in the documents directory of the app.
             //Storying the images and the file/path names
-            
 //            //Playing the recorded video after checking if the video has been saved.
 //            if savedVideoURL != nil {
 //                self.playVideo(videoLocalURL: savedVideoURL!)
@@ -196,7 +205,6 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         })
         
     }
-    
     
 /*Media Playback functions*/
     func playVideo(videoLocalURL: NSURL) {

@@ -73,8 +73,6 @@ class VideoAppModel: NSObject {
             //Getting the initial uiimage.
             thumbnail = UIImage(cgImage: frameRef)
             thumbnail = imageWithImage(image: thumbnail, newSize: CGSize(width: 126.22, height: 71))
-            
-            
         } catch {
             print("Frame cannot be captured.")
         }
@@ -94,10 +92,6 @@ class VideoAppModel: NSObject {
         
         //Appending to the metadata array.
         videosMetaData.append(videoMetaDataToSave)
-        
-        //It's not the model's responsiblity to reload tableview.
-//        //Updating the tableview with new data.
-//        tableViewOfVideos.reloadData()
         //Saving data to the system permanantly.
         saveVideosMetaDataToTheSystem()
     }
