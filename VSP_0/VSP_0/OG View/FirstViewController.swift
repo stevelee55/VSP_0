@@ -133,7 +133,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBAction func launchSettingsButton(_ sender: Any) {
     }
     
-/*UIScrollView Delegate functions*/
+/*UITableView Delegate functions and other functions that help.*/
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return model.videosMetaData.count
     }
@@ -164,6 +164,12 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return cell
     }
     
+    //Deselects the selected cell after it is clicked by the user.
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let index = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: index, animated: true)
+        }
+    }
 /*Camera Functions*/
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
