@@ -22,12 +22,65 @@ class SendDataToLambdaViewController: UIViewController {
     @IBAction func sendDataToAWSLambda(_ sender: Any) {
         //Send data to lambda function.
         //AWS Lambda Setup.
+        
+        
+//        let invocationRequest = AWSLambdaInvokerInvocationRequest()
+//        invocationRequest?.functionName = "VSP-helloWorld-mobilehub-602139379"
+//        invocationRequest?.invocationType = AWSLambdaInvocationType.requestResponse
+//        invocationRequest?.payload = ["operation": "echo",
+//                                      "message": "Hello world!"]
+//
+//        let lambdaInvoker = AWSLambdaInvoker.default()
+//        lambdaInvoker.invoke(invocationRequest!).continueWith(block: {(task: AWSTask<AWSLambdaInvokerInvocationResponse>) -> Any? in
+//            if let error = task.error as NSError? {
+//                if (error.domain == AWSLambdaInvokerErrorDomain) && (AWSLambdaInvokerErrorType.functionError == AWSLambdaInvokerErrorType(rawValue: error.code)) {
+//                    print("Function error: \(String(describing: error.userInfo[AWSLambdaInvokerFunctionErrorKey]))")
+//                    } else {
+//                    print("Error: \(error)")
+//                    }
+//                    return nil
+//            }
+//
+//            // Handle response in task.result
+//            if let JSONDictionary = task.result as? NSDictionary {
+//                print("Result: \(JSONDictionary)")
+//                print("resultKey: \(String(describing: JSONDictionary["resultKey"]))")
+//            }
+//            return nil
+//        })
+        
+        
+//        let lambdaInvoker = AWSLambdaInvoker.default()
+//        let jsonObject: [String: Any] = ["key1" : "value1",
+//                                         "key2" : 2 ,
+//                                         "key3" : [1, 2],
+//                                         "isError" : false]
+//        lambdaInvoker.invokeFunction("VSP-helloWorld-mobilehub-602139379", jsonObject: jsonObject).continueWith(block: {(task:AWSTask<AnyObject>) -> Any? in
+//            if let error = task.error as NSError? {
+//                if (error.domain == AWSLambdaInvokerErrorDomain) && (AWSLambdaInvokerErrorType.functionError == AWSLambdaInvokerErrorType(rawValue: error.code)) {
+//                    print("Function error: \(String(describing: error.userInfo[AWSLambdaInvokerFunctionErrorKey]))")
+//                    } else {
+//                    print("Error: \(error)")
+//                    }
+//                    return nil
+//            }
+//
+//            // Handle response in task.result
+//            if let JSONDictionary = task.result as? NSDictionary {
+//                print("Result: \(JSONDictionary)")
+//                print("resultKey: \(String(describing: JSONDictionary["resultKey"]))")
+//            }
+//            return nil
+//        })
+        
         let lambdaInvoker = AWSLambdaInvoker.default()
+        
         let jsonObject: [String: Any] = ["key1" : "value1",
-                                         "key2" : 2 ,
+                                         "key2" : 2,
                                          "key3" : [1, 2],
                                          "isError" : false]
-        lambdaInvoker.invokeFunction("randomNumberGenerator", jsonObject: jsonObject).continueWith(block: {(task:AWSTask<AnyObject>) -> Any? in
+        
+        lambdaInvoker.invokeFunction("VSP-helloWorld-mobilehub-602139379", jsonObject: jsonObject).continueWith(block: {(task:AWSTask<AnyObject>) -> Any? in
             if let error = task.error as NSError? {
                 if (error.domain == AWSLambdaInvokerErrorDomain) && (AWSLambdaInvokerErrorType.functionError == AWSLambdaInvokerErrorType(rawValue: error.code)) {
                     print("Function error: \(String(describing: error.userInfo[AWSLambdaInvokerFunctionErrorKey]))")
