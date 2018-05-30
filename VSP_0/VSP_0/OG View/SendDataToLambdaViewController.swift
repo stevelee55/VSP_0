@@ -12,6 +12,8 @@ class SendDataToLambdaViewController: UIViewController {
     
     @IBOutlet weak var recievedDataLabel: UILabel!
     
+    let api = MobileBackendAPI()
+    
     override func viewDidLoad() {
         
     }
@@ -22,9 +24,8 @@ class SendDataToLambdaViewController: UIViewController {
         //Send data to lambda function.
         //AWS Lambda Setup.
         
-        let api = MobileBackendAPI()
-        
-        api.doInvokeAPI()
+        //Calling the API Gateway and getting the response from AWS Lambda.
+        api.doInvokeAPI(recievedDataLabel: recievedDataLabel)
     }
 
     //Dismissing the current view controller.

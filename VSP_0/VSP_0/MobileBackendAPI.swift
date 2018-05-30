@@ -14,9 +14,9 @@ import AWSMobileClient
 
 class MobileBackendAPI {
     
-    
     //Default invoking the API Gateway.
-    func doInvokeAPI() {
+    //Origin: https://docs.aws.amazon.com/aws-mobile/latest/developerguide/add-aws-mobile-cloud-logic.html#connect-to-your-backend
+    func doInvokeAPI(recievedDataLabel: UILabel) {
         // change the method name, or path or the query string parameters here as desired
         let httpMethodName = "POST"
         // change to any valid path you configured in the API
@@ -68,6 +68,13 @@ class MobileBackendAPI {
             print(responseString!)
             print(result.statusCode)
             
+            //This allows the label to be updated after the "closure is completed".
+            //It is almost like a delayed reaction.
+            //I think this is like function getting called in the stack but
+            //it still persists. Take a look into this later more in depth.
+            DispatchQueue.main.async {
+                recievedDataLabel.text = responseString
+            }
             return nil
         }
     }
