@@ -22,6 +22,9 @@ class SendDataToLambdaViewController: UIViewController {
         //Send data to lambda function.
         //AWS Lambda Setup.
         
+        let api = MobileBackendAPI()
+        
+        api.doInvokeAPI()
     }
 
     //Dismissing the current view controller.

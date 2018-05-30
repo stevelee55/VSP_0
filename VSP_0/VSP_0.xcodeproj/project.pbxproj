@@ -27,6 +27,7 @@
 		9DE39EC220BF094D005C8301 /* AWSAPI_TSYAQ88K2E_RequestSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE39EBC20BF094D005C8301 /* AWSAPI_TSYAQ88K2E_RequestSchema.m */; };
 		9DE39EC320BF094D005C8301 /* AWSAPI_TSYAQ88K2E_VSPMobileHubClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE39EBD20BF094D005C8301 /* AWSAPI_TSYAQ88K2E_VSPMobileHubClient.m */; };
 		9DE39EC420BF094D005C8301 /* AWSAPI_TSYAQ88K2E_ResponseSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE39EBE20BF094D005C8301 /* AWSAPI_TSYAQ88K2E_ResponseSchema.m */; };
+		9DE39EC720BF0B59005C8301 /* MobileBackendAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE39EC620BF0B59005C8301 /* MobileBackendAPI.swift */; };
 		C6FDD70FF2DFA37CB7D38C9A /* Pods_VSP_0.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D70B1CC20CB47BADD55B1C4 /* Pods_VSP_0.framework */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +84,7 @@
 		9DE39EC020BF094D005C8301 /* AWSAPI_TSYAQ88K2E_VSPMobileHubClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWSAPI_TSYAQ88K2E_VSPMobileHubClient.h; sourceTree = "<group>"; };
 		9DE39EC120BF094D005C8301 /* AWSAPI_TSYAQ88K2E_RequestSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWSAPI_TSYAQ88K2E_RequestSchema.h; sourceTree = "<group>"; };
 		9DE39EC520BF098B005C8301 /* Bridging_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridging_Header.h; sourceTree = "<group>"; };
+		9DE39EC620BF0B59005C8301 /* MobileBackendAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileBackendAPI.swift; sourceTree = "<group>"; };
 		C809F54EF36329E96EB3EA44 /* Pods-VSP_0UITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VSP_0UITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VSP_0UITests/Pods-VSP_0UITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E98326D2F7C8092053B56211 /* Pods-VSP_0UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VSP_0UITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-VSP_0UITests/Pods-VSP_0UITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -151,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				9D4A6C9C20AC837400080C0D /* AppDelegate.swift */,
+				9DE39EC620BF0B59005C8301 /* MobileBackendAPI.swift */,
 				9DE39EC520BF098B005C8301 /* Bridging_Header.h */,
 				9DE39EBB20BF094D005C8301 /* Api */,
 				9D4A6D1120B498C600080C0D /* OG View */,
@@ -455,6 +458,7 @@
 				9D4A6CCF20AE184200080C0D /* CameraViewController.swift in Sources */,
 				9D4A6C9D20AC837400080C0D /* AppDelegate.swift in Sources */,
 				9D38068220BC7D3800F5A0A3 /* SendDataToLambdaViewController.swift in Sources */,
+				9DE39EC720BF0B59005C8301 /* MobileBackendAPI.swift in Sources */,
 				9DE39EC420BF094D005C8301 /* AWSAPI_TSYAQ88K2E_ResponseSchema.m in Sources */,
 				9D4A6D0E20B4977A00080C0D /* VideoClipOptionsViewController.swift in Sources */,
 				9D4A6C9F20AC837400080C0D /* FirstViewController.swift in Sources */,
