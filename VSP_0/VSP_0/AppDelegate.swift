@@ -9,9 +9,6 @@
 import UIKit
 import AWSMobileClient
 import AWSCore
-import AWSLambda
-import AWSAPIGateway
-import AWSCognito
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,22 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         //return true
 
-        
-        
-        //This potentially solves the problem with the plist error.
-        //let credentialsProvider = AWSCognitoCredentialsProvider(regionType: AWSRegionType.USEast1, identityPoolId: "us-east-1:216c62bf-75f0-42e4-bfe6-de99b1a640b2", identityProviderManager: <#T##AWSIdentityProviderManager?#>)
-        
-        
-        
-         let credentialsProvider = AWSCognitoCredentialsProvider(regionType: AWSRegionType.USEast1, identityPoolId: "us-east-1:216c62bf-75f0-42e4-bfe6-de99b1a640b2")
-        let defaultConfiguration = AWSServiceConfiguration(region: AWSRegionType.USEast1, credentialsProvider: credentialsProvider)
-        AWSServiceManager.default().defaultServiceConfiguration = defaultConfiguration
-        
-        
-//        let credentialsProvider = AWSStaticCredentialsProvider(accessKey: , secretKey: <#T##String#>) .init(accessKey:Constants.AWS_ACCESS_KEY, secretKey: Constants.AWS_SECRET_KEY)
-//        let defaultServiceConfiguration = AWSServiceConfiguration(region: Constants.AWS_REGION, credentialsProvider: credentialsProvider)
-//        AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = defaultServiceConfiguration
-//        
         // Create AWSMobileClient to connect with AWS
         AWSDDLog.add(AWSDDTTYLogger.sharedInstance)
         AWSDDLog.sharedInstance.logLevel = .info

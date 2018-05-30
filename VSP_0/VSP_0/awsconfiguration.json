@@ -12,6 +12,12 @@
   "IdentityManager": {
     "Default": {}
   },
+  "S3TransferUtility": {
+    "Default": {
+      "Bucket": "vsp-userfiles-mobilehub-602139379",
+      "Region": "us-east-1"
+    }
+  },
   "PinpointAnalytics": {
     "Default": {
       "AppId": "febf23632bd94b59bf64280a4d833111",
@@ -20,6 +26,12 @@
   },
   "PinpointTargeting": {
     "Default": {
+      "Region": "us-east-1"
+    }
+  },
+  "UserFileManager": {
+    "Default": {
+      "Bucket": "vsp-userfiles-mobilehub-602139379",
       "Region": "us-east-1"
     }
   }
