@@ -26,10 +26,11 @@ class SendDataToLambdaViewController: UIViewController {
         //AWS Lambda Setup.
         
         //Calling the API Gateway and getting the response from AWS Lambda.
-        //api.doInvokeAPI(recievedDataLabel: recievedDataLabel)
+        
         
         if !uploaded {
             api.uploadData()
+            //api.doInvokeAPI(recievedDataLabel: recievedDataLabel)
             uploaded = true
         } else {
             api.downloadData(recievedDataLabel: recievedDataLabel)
