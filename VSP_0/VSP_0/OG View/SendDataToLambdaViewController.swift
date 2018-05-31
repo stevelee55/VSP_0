@@ -14,10 +14,11 @@ class SendDataToLambdaViewController: UIViewController {
     
     let api = MobileBackendAPI()
     
+    var uploaded = false
+    
     override func viewDidLoad() {
         
     }
-    
     
     //Connecting to AWS Lambda and requesting data/calling function.
     @IBAction func sendDataToAWSLambda(_ sender: Any) {
@@ -25,7 +26,16 @@ class SendDataToLambdaViewController: UIViewController {
         //AWS Lambda Setup.
         
         //Calling the API Gateway and getting the response from AWS Lambda.
-        api.doInvokeAPI(recievedDataLabel: recievedDataLabel)
+        //api.doInvokeAPI(recievedDataLabel: recievedDataLabel)
+        
+        if !uploaded {
+            api.uploadData()
+            uploaded = true
+        } else {
+            api.downloadData(recievedDataLabel: recievedDataLabel)
+            uploaded = false
+        }
+        
     }
 
     //Dismissing the current view controller.

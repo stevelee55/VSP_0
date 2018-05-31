@@ -23,9 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Create AWSMobileClient to connect with AWS
         AWSDDLog.add(AWSDDTTYLogger.sharedInstance)
         AWSDDLog.sharedInstance.logLevel = .info
-        return AWSMobileClient.sharedInstance().interceptApplication(
-            application,
-            didFinishLaunchingWithOptions: launchOptions)
+        return AWSMobileClient.sharedInstance().interceptApplication(application,didFinishLaunchingWithOptions: launchOptions)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
