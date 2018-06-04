@@ -85,7 +85,6 @@
                                             <outlet property="thumbnail" destination="Jna-yu-1V1" id="8Hs-6p-tEc"/>
                                             <outlet property="videoLengthTime" destination="9jk-ab-ivv" id="cOR-SN-y16"/>
                                             <outlet property="videoTitle" destination="uXL-U7-a8T" id="vxM-of-MAO"/>
-                                            <segue destination="v1B-jv-Xaf" kind="show" id="A9c-YQ-LSR"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -123,6 +122,7 @@
                     <connections>
                         <outlet property="actionButtonOutlet" destination="QxR-k5-vFJ" id="Qdw-rz-uro"/>
                         <outlet property="tableViewOfVideos" destination="4K4-WP-7fZ" id="iAT-wP-yaI"/>
+                        <segue destination="v1B-jv-Xaf" kind="show" identifier="SegueToVideoDataAndActions" id="1Ll-7q-U2g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -138,30 +138,80 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="krR-vd-Hve">
-                                <rect key="frame" x="96" y="318" width="183" height="30"/>
+                                <rect key="frame" x="96" y="413" width="183" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Send data to AWS Lambda"/>
                                 <connections>
                                     <action selector="sendDataToAWSLambda:" destination="v1B-jv-Xaf" eventType="touchUpInside" id="Bub-jp-I7o"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZxZ-qK-1NW">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZxZ-qK-1NW">
                                 <rect key="frame" x="16" y="20" width="34" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Back"/>
                                 <connections>
                                     <action selector="dismissButton:" destination="v1B-jv-Xaf" eventType="touchUpInside" id="B39-Zf-oDp"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No Data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HUn-8x-RY9">
-                                <rect key="frame" x="16" y="422" width="343" height="225"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Data" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HUn-8x-RY9">
+                                <rect key="frame" x="16" y="451" width="343" height="196"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="196" id="gnD-JU-ZhG"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Record Button" translatesAutoresizingMaskIntoConstraints="NO" id="1e6-xi-GND">
+                                <rect key="frame" x="67" y="76" width="240" height="135"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="135" id="BbF-PO-F5E"/>
+                                    <constraint firstAttribute="width" constant="240" id="Xit-Wc-mvl"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AnI-bM-vvO">
+                                <rect key="frame" x="239" y="238" width="40" height="40"/>
+                                <state key="normal" title="Button" image="LambdaButton"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x2u-Kw-gY9">
+                                <rect key="frame" x="96" y="238" width="40" height="40"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWq-8C-x6l">
+                                <rect key="frame" x="167" y="238" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="0ze-h9-76v"/>
+                                    <constraint firstAttribute="height" constant="40" id="m4L-Gl-EV9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <state key="normal" title="▶︎"/>
+                                <connections>
+                                    <action selector="videoPlayButton:" destination="v1B-jv-Xaf" eventType="touchUpInside" id="OLu-ef-w2Z"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="x2u-Kw-gY9" firstAttribute="centerY" secondItem="dWq-8C-x6l" secondAttribute="centerY" id="2Ns-al-4VL"/>
+                            <constraint firstItem="AnI-bM-vvO" firstAttribute="centerY" secondItem="dWq-8C-x6l" secondAttribute="centerY" id="4EO-Vr-gHV"/>
+                            <constraint firstItem="x2u-Kw-gY9" firstAttribute="height" secondItem="dWq-8C-x6l" secondAttribute="height" id="4qd-SB-Pgt"/>
+                            <constraint firstItem="dWq-8C-x6l" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="x2u-Kw-gY9" secondAttribute="trailing" constant="8" symbolic="YES" id="5y6-f2-ljM"/>
+                            <constraint firstItem="ZxZ-qK-1NW" firstAttribute="leading" secondItem="RUk-Xp-yYk" secondAttribute="leading" constant="16" id="64j-Hm-o8d"/>
+                            <constraint firstItem="1e6-xi-GND" firstAttribute="top" secondItem="RUk-Xp-yYk" secondAttribute="top" constant="56" id="8iw-c5-VJE"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZxZ-qK-1NW" secondAttribute="trailing" constant="20" symbolic="YES" id="FNH-P3-uvD"/>
+                            <constraint firstItem="dWq-8C-x6l" firstAttribute="top" secondItem="1e6-xi-GND" secondAttribute="bottom" constant="27" id="FcP-lp-Obt"/>
+                            <constraint firstItem="x2u-Kw-gY9" firstAttribute="width" secondItem="dWq-8C-x6l" secondAttribute="width" id="LPb-6E-tZR"/>
+                            <constraint firstItem="HUn-8x-RY9" firstAttribute="leading" secondItem="RUk-Xp-yYk" secondAttribute="leading" constant="16" id="Loi-EO-NIi"/>
+                            <constraint firstItem="1e6-xi-GND" firstAttribute="centerX" secondItem="RUk-Xp-yYk" secondAttribute="centerX" id="Q48-vB-1wD"/>
+                            <constraint firstItem="AnI-bM-vvO" firstAttribute="leading" secondItem="dWq-8C-x6l" secondAttribute="trailing" constant="32" id="Ru1-Ys-Gkh"/>
+                            <constraint firstItem="ZxZ-qK-1NW" firstAttribute="top" secondItem="RUk-Xp-yYk" secondAttribute="top" id="VK3-iH-OkI"/>
+                            <constraint firstItem="RUk-Xp-yYk" firstAttribute="trailing" secondItem="HUn-8x-RY9" secondAttribute="trailing" constant="16" id="WE3-Ng-DKe"/>
+                            <constraint firstItem="dWq-8C-x6l" firstAttribute="centerX" secondItem="RUk-Xp-yYk" secondAttribute="centerX" id="XUb-15-v4C"/>
+                            <constraint firstItem="AnI-bM-vvO" firstAttribute="height" secondItem="dWq-8C-x6l" secondAttribute="height" id="XtR-Ob-UqL"/>
+                            <constraint firstItem="AnI-bM-vvO" firstAttribute="width" secondItem="dWq-8C-x6l" secondAttribute="width" id="YZx-rs-BLL"/>
+                            <constraint firstItem="RUk-Xp-yYk" firstAttribute="bottom" secondItem="HUn-8x-RY9" secondAttribute="bottom" constant="20" id="qbC-yM-Wyg"/>
+                            <constraint firstItem="dWq-8C-x6l" firstAttribute="leading" secondItem="x2u-Kw-gY9" secondAttribute="trailing" constant="31" id="ubb-2f-y3W"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="AnI-bM-vvO" secondAttribute="trailing" constant="20" symbolic="YES" id="z7M-CZ-8Ak"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="RUk-Xp-yYk"/>
                     </view>
                     <connections>
@@ -170,7 +220,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wrh-Yk-PtB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1688.8" y="-344.07796101949026"/>
+            <point key="canvasLocation" x="1688.8" y="-323.38830584707648"/>
         </scene>
         <!--Video Clip Options View Controller-->
         <scene sceneID="Yuo-N2-Gud">
@@ -247,6 +297,8 @@
     <resources>
         <image name="Camera" width="89" height="89"/>
         <image name="Camera_Pressed" width="89" height="89"/>
+        <image name="LambdaButton" width="92" height="92"/>
+        <image name="Record Button" width="151" height="151"/>
         <image name="first" width="30" height="30"/>
         <image name="portrait" width="82" height="82"/>
         <image name="second" width="30" height="30"/>

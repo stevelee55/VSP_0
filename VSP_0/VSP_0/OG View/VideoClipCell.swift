@@ -15,4 +15,6 @@ class VideoClipCell: UITableViewCell {
     @IBOutlet weak var videoTitle: UILabel!
     @IBOutlet weak var recordedDate: UILabel!
     @IBOutlet weak var videoLengthTime: UILabel!
+    
+    var videoURLPath:URL = URL(fileURLWithPath: "n/a")
 }

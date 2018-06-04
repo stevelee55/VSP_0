@@ -15,7 +15,7 @@ class VideoMetaData: NSObject, NSCoding {
     var recordedDate: String = "n/a"
     var videoDuration: String = "n/a"
     var thumbnail: UIImage = #imageLiteral(resourceName: "Record Button")
-    var videoURLPath: NSURL = NSURL()
+    var videoURLPath: URL = URL(fileURLWithPath: "n/a")
     var orientation: String = "n/a"
     
     func encode(with aCoder: NSCoder) {
@@ -32,7 +32,7 @@ class VideoMetaData: NSObject, NSCoding {
         self.recordedDate = (aDecoder.decodeObject(forKey: "recordedDate") as? String)!
         self.videoDuration = (aDecoder.decodeObject(forKey: "videoDuration") as? String)!
         self.thumbnail = (aDecoder.decodeObject(forKey: "thumbnail") as? UIImage)!
-        self.videoURLPath = aDecoder.decodeObject(forKey: "videoURLPath") as! NSURL
+        self.videoURLPath = aDecoder.decodeObject(forKey: "videoURLPath") as! URL
         self.orientation = aDecoder.decodeObject(forKey: "orientation") as! String
     }
     

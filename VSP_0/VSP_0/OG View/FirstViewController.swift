@@ -22,6 +22,9 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     //Camera component.
     let picker: UIImagePickerController = UIImagePickerController()
     
+    //Data To pass.
+    var videoURLToPass:URL = URL(fileURLWithPath: "")
+    
     //UIScrollView
     @IBOutlet weak var tableViewOfVideos: UITableView!
     //Cell: Custom for accessing a video clip.
@@ -151,6 +154,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.recordedDate.text = model.videosMetaData[indexPath.row].recordedDate
         cell.videoLengthTime.text = model.videosMetaData[indexPath.row].videoDuration
         cell.recordedDate.text = model.videosMetaData[indexPath.row].recordedDate
+        cell.videoURLPath = model.videosMetaData[indexPath.row].videoURLPath
         //Seting the orientation indicator image.
         if model.videosMetaData[indexPath.row].orientation == "Portrait" {
             cell.orientationIndicator.image = #imageLiteral(resourceName: "portrait")
@@ -168,17 +172,37 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let index = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: index, animated: true)
+            videoURLToPass = model.videosMetaData[indexPath.row].videoURLPath
+            
+            performSegue(withIdentifier: "SegueToVideoDataAndActions", sender: self)
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if let destinationViewController = segue.destination as? SendDataToLambdaViewController {
+//            destinationViewController.videoURL = videoURLToPass
+//        }
+        
+        if (segue.identifier == "SegueToVideoDataAndActions") {
+            
+            if let destinationViewController = segue.destination as? SendDataToLambdaViewController {
+                destinationViewController.videoURL = videoURLToPass
+                self.present(destinationViewController, animated: true, completion: nil)
+            }
+        }
+    }
+    
 /*Camera Functions*/
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         //Checking to see if the video was taken and has a url.
-        var savedVideoURL:NSURL? = nil
-        if let videoURL = info[UIImagePickerControllerMediaURL] as? NSURL {
+        var savedVideoURL:URL? = nil
+        if let videoURL = info[UIImagePickerControllerMediaURL] as? URL {
             //Saves to the main photo album.
-            UISaveVideoAtPathToSavedPhotosAlbum(videoURL.relativePath!, self, nil, nil)
+            
+            //UISaveVideoAtPathToSavedPhotosAlbum(videoURL.relativePath!, self, nil, nil)
+            
             //Saving the video URL for storing and later playback.
             savedVideoURL = videoURL
             //Saving the video and the url and other metadata of the video to the

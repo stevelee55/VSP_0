@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVKit
 
 class SendDataToLambdaViewController: UIViewController {
     
@@ -14,12 +15,32 @@ class SendDataToLambdaViewController: UIViewController {
     
     let api = MobileBackendAPI()
     
+    var videoURL:URL = URL(fileURLWithPath: "default")
+    
+    var player = AVPlayer()
+    
     var uploaded = false
     
     override func viewDidLoad() {
         
     }
     
+    @IBAction func videoPlayButton(_ sender: Any) {
+        
+        let player = AVPlayer(url: videoURL)  // video path coming from above function
+        
+        let playerViewController = AVPlayerViewController()
+        playerViewController.player = player
+        self.present(playerViewController, animated: true) {
+            playerViewController.player!.play()
+        }
+        
+//        let asset = AVURLAsset(url: videoURL, options: nil)
+//        let playerItem = AVPlayerItem(asset: asset)
+//        player = AVPlayer(playerItem: playerItem)
+//        player.addObserver(self, forKeyPath: "status", options: NSKeyValueObservingOptions(rawValue: 0), context: nil)
+//
+    }
     //Connecting to AWS Lambda and requesting data/calling function.
     @IBAction func sendDataToAWSLambda(_ sender: Any) {
         //Send data to lambda function.

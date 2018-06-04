@@ -35,7 +35,7 @@ class VideoAppModel: NSObject {
     
 /*Save Video Function*/
     //Saving the video that was just recorded.
-    func saveVideoAndItsMetaData(videoURL: NSURL) {
+    func saveVideoAndItsMetaData(videoURL: URL) {
         
         //Ask user for the title of the video. Could be a pop-up windown like
         //vnc asking for an ip address before connecting to anything.
@@ -95,6 +95,7 @@ class VideoAppModel: NSObject {
         //Saving data to the system permanantly.
         saveVideosMetaDataToTheSystem()
     }
+    
     //Saving the video for the long term.
     private func saveVideosMetaDataToTheSystem() {
         //Archieving into a Data type.
