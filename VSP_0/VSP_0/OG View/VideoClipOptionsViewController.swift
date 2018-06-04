@@ -12,8 +12,6 @@ class VideoClipOptionsViewController: UIViewController {
     
     
     override func viewDidLoad() {
-        
-        
     }
     
     override func didReceiveMemoryWarning() {

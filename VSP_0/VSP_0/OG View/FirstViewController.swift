@@ -22,7 +22,8 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     //Camera component.
     let picker: UIImagePickerController = UIImagePickerController()
     
-    //Data To pass.
+    //Data To pass to the video clip options and metadata view controller.
+    //This is updated whenever a tableviewcell is clicked by the user.
     var videoURLToPass:URL = URL(fileURLWithPath: "")
     
     //UIScrollView
@@ -62,7 +63,6 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         //the actual images, but the images/thumbnails' url names in strings, which
         //can be used to look up the images in the dictionary.
         model.loadVideosMetaData()
-        
     }
     
 /*Setup Functions*/
@@ -154,7 +154,6 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.recordedDate.text = model.videosMetaData[indexPath.row].recordedDate
         cell.videoLengthTime.text = model.videosMetaData[indexPath.row].videoDuration
         cell.recordedDate.text = model.videosMetaData[indexPath.row].recordedDate
-        cell.videoURLPath = model.videosMetaData[indexPath.row].videoURLPath
         //Seting the orientation indicator image.
         if model.videosMetaData[indexPath.row].orientation == "Portrait" {
             cell.orientationIndicator.image = #imageLiteral(resourceName: "portrait")
@@ -168,23 +167,28 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return cell
     }
     
-    //Deselects the selected cell after it is clicked by the user.
+    //This gets called whenever the user clicks on one of the tableview cells.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //Do something for the specific cell that was clicked.
         if let index = tableView.indexPathForSelectedRow {
+            //Deselects the selected cell after it is clicked by the user.
             tableView.deselectRow(at: index, animated: true)
+            //Storing the video url of the videoclipcell that was clicked on by the user.
             videoURLToPass = model.videosMetaData[indexPath.row].videoURLPath
-            
+            //Programmatically calling the segue. This segue is connected from
+            //"self" vc to the about-to-be presented vc in the storyboard.
             performSegue(withIdentifier: "SegueToVideoDataAndActions", sender: self)
         }
     }
     
+    //This is preparing data that are needed to be sent whenever a specific
+    //segue is triggered by the function "performSegue(withIden...)"
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if let destinationViewController = segue.destination as? SendDataToLambdaViewController {
-//            destinationViewController.videoURL = videoURLToPass
-//        }
-        
+        //Preparing videourl data and other data to present on the
+        //view controller where the specific video's meta data and thumbnail and
+        //whatnot will be presented at. The user is also able to do the video
+        //playback from the video url that is being passed to the view controller.
         if (segue.identifier == "SegueToVideoDataAndActions") {
-            
             if let destinationViewController = segue.destination as? SendDataToLambdaViewController {
                 destinationViewController.videoURL = videoURLToPass
                 self.present(destinationViewController, animated: true, completion: nil)

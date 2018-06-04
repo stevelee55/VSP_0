@@ -13,33 +13,23 @@ class SendDataToLambdaViewController: UIViewController {
     
     @IBOutlet weak var recievedDataLabel: UILabel!
     
+    //API object that is used to call functions for uploading or downloading
+    //data from AWS services.
     let api = MobileBackendAPI()
     
+    //This data is passed from the OG View Controller.
     var videoURL:URL = URL(fileURLWithPath: "default")
     
-    var player = AVPlayer()
-    
+    //This is temp.
     var uploaded = false
     
+    //May not need this at all.
     override func viewDidLoad() {
-        
     }
     
+    //Button that plays video that the passed in video url.
     @IBAction func videoPlayButton(_ sender: Any) {
-        
-        let player = AVPlayer(url: videoURL)  // video path coming from above function
-        
-        let playerViewController = AVPlayerViewController()
-        playerViewController.player = player
-        self.present(playerViewController, animated: true) {
-            playerViewController.player!.play()
-        }
-        
-//        let asset = AVURLAsset(url: videoURL, options: nil)
-//        let playerItem = AVPlayerItem(asset: asset)
-//        player = AVPlayer(playerItem: playerItem)
-//        player.addObserver(self, forKeyPath: "status", options: NSKeyValueObservingOptions(rawValue: 0), context: nil)
-//
+        playVideoAtURLPath(url: videoURL)
     }
     //Connecting to AWS Lambda and requesting data/calling function.
     @IBAction func sendDataToAWSLambda(_ sender: Any) {
@@ -47,8 +37,6 @@ class SendDataToLambdaViewController: UIViewController {
         //AWS Lambda Setup.
         
         //Calling the API Gateway and getting the response from AWS Lambda.
-        
-        
         if !uploaded {
             api.uploadData()
             //api.doInvokeAPI(recievedDataLabel: recievedDataLabel)
@@ -58,6 +46,15 @@ class SendDataToLambdaViewController: UIViewController {
             uploaded = false
         }
         
+    }
+/*Video Playback*/
+    func playVideoAtURLPath(url: URL) {
+        let player = AVPlayer(url: url)
+        let playerViewController = AVPlayerViewController()
+        playerViewController.player = player
+        self.present(playerViewController, animated: true) {
+            playerViewController.player!.play()
+        }
     }
 
     //Dismissing the current view controller.
