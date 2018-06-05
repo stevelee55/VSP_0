@@ -12,6 +12,9 @@ import AWSCore
 import AWSAPIGateway
 import AWSMobileClient
 
+//For checking internect connection.
+import SystemConfiguration
+
 //AWS S3
 import AWSS3
 
@@ -24,95 +27,111 @@ class MobileBackendAPI {
         uploadToAWSProgressBar.isUserInteractionEnabled = false
     }
     
+    
 /*AWSS3*/
     
     //S3 Bucket name.
     let bucketName = "vsp-userfiles-mobilehub-602139379/userData"
-    
-    func uploadData(progressBar: UIProgressView) {
+    //If success, return true, if fail, return false.
+    func uploadData(progressBar: UIProgressView) -> Bool {
         
-        //let stringData:String = "Hello World! This is from AWSS3! :0"
+        //Running the code if and only if the device is connected to the network.
+        if isConnectedToNetwork() {
+            //If the connection is available, don't show any alert to the user.
+            print("Connected!")
         
-        let imageData:UIImage = #imageLiteral(resourceName: "bigfile")
+            //let stringData:String = "Hello World! This is from AWSS3! :0"
+            
+            let imageData:UIImage = #imageLiteral(resourceName: "bigfile")
+            
+            let data: Data = UIImagePNGRepresentation(imageData)! //stringData.data(using: .utf8)! //Data() // Data to be uploaded
+            
+            let expression = AWSS3TransferUtilityUploadExpression()
+            expression.progressBlock = {(task, progress) in
+                DispatchQueue.main.async(execute: {
+                    // Do something e.g. Update a progress bar.
+                    progressBar.progress = Float(progress.fractionCompleted)
+                })
+            }
+            
+            var completionHandler: AWSS3TransferUtilityUploadCompletionHandlerBlock?
+            completionHandler = { (task, error) -> Void in
+                DispatchQueue.main.async(execute: {
+                    // Do something e.g. Alert a user for transfer completion.
+                    // On failed uploads, `error` contains the error object.
+                    print("Upload Successful")
+                    //Resetting the Progressbar
+                    self.initUploadToAWSProgressBar(uploadToAWSProgressBar: progressBar)
+                })
+            }
+            
+            let transferUtility = AWSS3TransferUtility.default()
+            
+            //Content Type lists: http://www.iana.org/assignments/media-types/media-types.xhtml
+            
+            transferUtility.uploadData(data,
+                                       bucket: bucketName,
+                                       key: "helloWorldFile",
+                                       contentType: "text/plain",
+                                       expression: expression,
+                                       completionHandler: completionHandler).continueWith {
+                                        (task) -> AnyObject? in
+                                        if let error = task.error {
+                                            print("Error: \(error.localizedDescription)")
+                                        }
+                                        
+                                        if let _ = task.result {
+                                            // Do something with uploadTask.
+                                        }
+                                        return nil;
+            }
+            return true
+        } else {
+            //If the device isn't conncted to the network, show an alert saying
+            //the device isn't connected.
+            print("Not connected!")
+            //Resetting the Progressbar
+            self.initUploadToAWSProgressBar(uploadToAWSProgressBar: progressBar)
+            return false
+        }
+    }
         
-        let data: Data = UIImagePNGRepresentation(imageData)! //stringData.data(using: .utf8)! //Data() // Data to be uploaded
-        
-        let expression = AWSS3TransferUtilityUploadExpression()
-        expression.progressBlock = {(task, progress) in
-            DispatchQueue.main.async(execute: {
+        //Downloading data from s3 bucket.
+        func downloadData(progressBar: UIProgressView) {
+            let expression = AWSS3TransferUtilityDownloadExpression()
+            expression.progressBlock = {(task, progress) in DispatchQueue.main.async(execute: {
                 // Do something e.g. Update a progress bar.
-                progressBar.progress = Float(progress.fractionCompleted)
+                print("Downloaded: \(progress)")
             })
-        }
-        
-        var completionHandler: AWSS3TransferUtilityUploadCompletionHandlerBlock?
-        completionHandler = { (task, error) -> Void in
-            DispatchQueue.main.async(execute: {
-                // Do something e.g. Alert a user for transfer completion.
-                // On failed uploads, `error` contains the error object.
-                print("Upload Successful")
-                //Resetting the Progressbar
-                self.initUploadToAWSProgressBar(uploadToAWSProgressBar: progressBar)
-            })
-        }
-        
-        let transferUtility = AWSS3TransferUtility.default()
-        
-        //Content Type lists: http://www.iana.org/assignments/media-types/media-types.xhtml
-        
-        transferUtility.uploadData(data,
-                                   bucket: bucketName,
-                                   key: "helloWorldFile",
-                                   contentType: "text/plain",
-                                   expression: expression,
-                                   completionHandler: completionHandler).continueWith {
-                                    (task) -> AnyObject? in
-                                    if let error = task.error {
-                                        print("Error: \(error.localizedDescription)")
-                                    }
-                                    
-                                    if let _ = task.result {
-                                        // Do something with uploadTask.
-                                    }
-                                    return nil;
-        }
-    }
-    
-    //Downloading data from s3 bucket.
-    func downloadData(progressBar: UIProgressView) {
-        let expression = AWSS3TransferUtilityDownloadExpression()
-        expression.progressBlock = {(task, progress) in DispatchQueue.main.async(execute: {
-            // Do something e.g. Update a progress bar.
-            print("Downloaded: \(progress)")
-        })
-        }
+            }
 
-        //Use this later.
-        var completionHandler: AWSS3TransferUtilityDownloadCompletionHandlerBlock?
-        //This runs whenever the downloaddata function is finish getting the data.
-        completionHandler = { (task, URL, data, error) -> Void in
-            DispatchQueue.main.async(execute: {
-                // Do something e.g. Alert a user for transfer completion.
-                // On failed downloads, `error` contains the error object.
-//                let responseString =  String(data:data!, encoding: .utf8)
-//                recievedDataLabel.text = responseString
-                print("Download Successful")
-            })
-        }
-        
-        //Later change the permission for the s3 buckets.
-        let transferUtility = AWSS3TransferUtility.default()
-        //This is for getting the notification when the download is complete.
-        transferUtility.downloadData(fromBucket: bucketName, key: "helloWorldFile", expression: expression, completionHandler: completionHandler).continueWith { (task) -> Any? in
-            if let error = task.error {
-                print("Error: \(error.localizedDescription)")
+            //Use this later.
+            var completionHandler: AWSS3TransferUtilityDownloadCompletionHandlerBlock?
+            //This runs whenever the downloaddata function is finish getting the data.
+            completionHandler = { (task, URL, data, error) -> Void in
+                DispatchQueue.main.async(execute: {
+                    // Do something e.g. Alert a user for transfer completion.
+                    // On failed downloads, `error` contains the error object.
+    //                let responseString =  String(data:data!, encoding: .utf8)
+    //                recievedDataLabel.text = responseString
+                    print("Download Successful")
+                })
             }
-            if let _ = task.result {
-                // Do something with downloadTask.
+            
+            //Later change the permission for the s3 buckets.
+            let transferUtility = AWSS3TransferUtility.default()
+            //This is for getting the notification when the download is complete.
+            transferUtility.downloadData(fromBucket: bucketName, key: "helloWorldFile", expression: expression, completionHandler: completionHandler).continueWith { (task) -> Any? in
+                if let error = task.error {
+                    print("Error: \(error.localizedDescription)")
+                }
+                if let _ = task.result {
+                    // Do something with downloadTask.
+                }
+                return nil
             }
-            return nil
+        //Device not connected to the network.
         }
-    }
     
     
 /*Lambda*/
@@ -181,4 +200,24 @@ class MobileBackendAPI {
             return nil
         }
     }
+    
+    //Checking if the device is connected to the internet.
+    func isConnectedToNetwork() -> Bool {
+        var zeroAddress = sockaddr_in(sin_len: 0, sin_family: 0, sin_port: 0, sin_addr: in_addr(s_addr: 0), sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
+        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+        let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
+            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
+                SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
+            }
+        }
+        var flags = SCNetworkReachabilityFlags()
+        if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) {
+            return false
+        }
+        let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
+        let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
+        return (isReachable && !needsConnection)
+    }
 }
+

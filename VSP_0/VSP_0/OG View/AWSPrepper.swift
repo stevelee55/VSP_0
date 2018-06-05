@@ -27,7 +27,11 @@ class AWSPrepper:UIViewController {
     @IBAction func sendDataToAWS(_ sender: Any) {
         
         startingUploadToAWSProgressBar()
-        api.uploadData(progressBar: uploadToAWSProgressBar)
+        if  !(api.uploadData(progressBar: uploadToAWSProgressBar)) {
+            let alert = UIAlertController(title: "AWS Not Available", message: "Device is not connected to the internet", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
         
         //Connecting to AWS Lambda and requesting data/calling function.
         //Send data to lambda function.
