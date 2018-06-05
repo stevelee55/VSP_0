@@ -30,9 +30,12 @@ class MobileBackendAPI {
     let bucketName = "vsp-userfiles-mobilehub-602139379/userData"
     
     func uploadData(progressBar: UIProgressView) {
-        let stringData:String = "Hello World! This is from AWSS3! :0"
         
-        let data: Data = stringData.data(using: .utf8)! //Data() // Data to be uploaded
+        //let stringData:String = "Hello World! This is from AWSS3! :0"
+        
+        let imageData:UIImage = #imageLiteral(resourceName: "bigfile")
+        
+        let data: Data = UIImagePNGRepresentation(imageData)! //stringData.data(using: .utf8)! //Data() // Data to be uploaded
         
         let expression = AWSS3TransferUtilityUploadExpression()
         expression.progressBlock = {(task, progress) in
