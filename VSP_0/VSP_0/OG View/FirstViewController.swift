@@ -191,8 +191,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if (segue.identifier == "SegueToVideoDataAndActions") {
             if let destinationViewController = segue.destination as? VideoClipOptionsViewController {
                 //Passing over the data.
-                destinationViewController.videoURL = videoMetaDataToPass.videoURLPath
-                destinationViewController.thumbnail = videoMetaDataToPass.thumbnail
+                destinationViewController.videoMetaData = videoMetaDataToPass
                 self.present(destinationViewController, animated: true, completion: nil)
             }
         }

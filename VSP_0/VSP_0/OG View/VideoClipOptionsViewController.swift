@@ -16,8 +16,7 @@ class VideoClipOptionsViewController: UIViewController {
     @IBOutlet weak var metaDataLabel: UILabel!
     
     //Data that are passed from the OG View Controller.
-    var videoURL:URL = URL(fileURLWithPath: "default")
-    var thumbnail: UIImage = #imageLiteral(resourceName: "Record Button")
+    var videoMetaData = VideoMetaData()
     
     //Thumbnail UIimage.
     @IBOutlet weak var videoThumbnail: UIImageView!
@@ -25,7 +24,7 @@ class VideoClipOptionsViewController: UIViewController {
     //May not need this at all.
     override func viewDidLoad() {
         //Setting the passed in thumbnail image to the current vc.
-        videoThumbnail.image = thumbnail
+        videoThumbnail.image = videoMetaData.thumbnail
     }
 
 /*Buttons*/
@@ -36,12 +35,13 @@ class VideoClipOptionsViewController: UIViewController {
     
     //Button that plays video that the passed in video url.
     @IBAction func videoPlayButton(_ sender: Any) {
-        playVideoAtURLPath(url: videoURL)
+        playVideoAtURLPath(url: videoMetaData.videoURLPath)
     }
     
 /*Preparing data to pass over to the other view controller.*/
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVS = segue.destination as! AWSPrepper
+        destinationVS.videoMetaData = videoMetaData
         present(destinationVS, animated: true, completion: nil)
     }
     

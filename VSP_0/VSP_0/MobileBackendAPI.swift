@@ -27,25 +27,19 @@ class MobileBackendAPI {
         uploadToAWSProgressBar.isUserInteractionEnabled = false
     }
     
-    
 /*AWSS3*/
     
     //S3 Bucket name.
     let bucketName = "vsp-userfiles-mobilehub-602139379/userData"
     //If success, return true, if fail, return false.
-    func uploadData(progressBar: UIProgressView) -> Bool {
+    func uploadData(progressBar: UIProgressView, dataToUpload: Data) -> Bool {
         
         //Running the code if and only if the device is connected to the network.
         if isConnectedToNetwork() {
             //If the connection is available, don't show any alert to the user.
             print("Connected!")
-        
-            //let stringData:String = "Hello World! This is from AWSS3! :0"
             
-            let imageData:UIImage = #imageLiteral(resourceName: "bigfile")
-            
-            let data: Data = UIImagePNGRepresentation(imageData)! //stringData.data(using: .utf8)! //Data() // Data to be uploaded
-            
+            //Used for the progress bar/loading bar.
             let expression = AWSS3TransferUtilityUploadExpression()
             expression.progressBlock = {(task, progress) in
                 DispatchQueue.main.async(execute: {
@@ -53,23 +47,25 @@ class MobileBackendAPI {
                     progressBar.progress = Float(progress.fractionCompleted)
                 })
             }
-            
+            //Runs whenever the upload is finished.
             var completionHandler: AWSS3TransferUtilityUploadCompletionHandlerBlock?
             completionHandler = { (task, error) -> Void in
                 DispatchQueue.main.async(execute: {
                     // Do something e.g. Alert a user for transfer completion.
                     // On failed uploads, `error` contains the error object.
                     print("Upload Successful")
+                    
+//Somehow show alert saying that the upload was successful.
+//The problem is that I canoot refer to the parent view controller from here.
+                    
                     //Resetting the Progressbar
                     self.initUploadToAWSProgressBar(uploadToAWSProgressBar: progressBar)
                 })
             }
-            
+            //Used for uploading the files.
             let transferUtility = AWSS3TransferUtility.default()
-            
             //Content Type lists: http://www.iana.org/assignments/media-types/media-types.xhtml
-            
-            transferUtility.uploadData(data,
+            transferUtility.uploadData(dataToUpload,
                                        bucket: bucketName,
                                        key: "helloWorldFile",
                                        contentType: "text/plain",
@@ -86,6 +82,8 @@ class MobileBackendAPI {
                                         return nil;
             }
             return true
+            
+        //Device not connected to the network.
         } else {
             //If the device isn't conncted to the network, show an alert saying
             //the device isn't connected.
@@ -130,7 +128,6 @@ class MobileBackendAPI {
                 }
                 return nil
             }
-        //Device not connected to the network.
         }
     
     
