@@ -87,16 +87,7 @@ class VideoAppModel: NSObject {
         videoMetaDataToSave.orientation = orientation
         videoMetaDataToSave.recordedDate = formattedDate
         videoMetaDataToSave.videoURLPath = videoURL
-//        //Storing the video itself to the file directory.
-//        do {
-//            if let videoData = try Data(contentsOf: videoURL) as Data? {
-//                try videoData.write(to: videoURL)
-//            }
-//        } catch {
-//            print("Video data cannot be saved to the documents directory")
-//            
-//        }
-        
+ 
         print("\(videoURL)")
         
         //Appending to the metadata array.

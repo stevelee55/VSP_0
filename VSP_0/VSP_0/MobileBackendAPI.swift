@@ -15,17 +15,21 @@ import AWSMobileClient
 //AWS S3
 import AWSS3
 
-
 class MobileBackendAPI {
     
+/*Init/reset Functions*/
+    func initUploadToAWSProgressBar(uploadToAWSProgressBar: UIProgressView) {
+        uploadToAWSProgressBar.alpha = 0.0
+        uploadToAWSProgressBar.progress = Float(0.0)
+        uploadToAWSProgressBar.isUserInteractionEnabled = false
+    }
     
 /*AWSS3*/
     
+    //S3 Bucket name.
     let bucketName = "vsp-userfiles-mobilehub-602139379/userData"
     
-    func uploadData() {
-        
-        
+    func uploadData(progressBar: UIProgressView) {
         let stringData:String = "Hello World! This is from AWSS3! :0"
         
         let data: Data = stringData.data(using: .utf8)! //Data() // Data to be uploaded
@@ -34,7 +38,7 @@ class MobileBackendAPI {
         expression.progressBlock = {(task, progress) in
             DispatchQueue.main.async(execute: {
                 // Do something e.g. Update a progress bar.
-                print(progress)
+                progressBar.progress = Float(progress.fractionCompleted)
             })
         }
         
@@ -44,6 +48,8 @@ class MobileBackendAPI {
                 // Do something e.g. Alert a user for transfer completion.
                 // On failed uploads, `error` contains the error object.
                 print("Upload Successful")
+                //Resetting the Progressbar
+                self.initUploadToAWSProgressBar(uploadToAWSProgressBar: progressBar)
             })
         }
         
@@ -70,7 +76,7 @@ class MobileBackendAPI {
     }
     
     //Downloading data from s3 bucket.
-    func downloadData(recievedDataLabel: UILabel) {
+    func downloadData(progressBar: UIProgressView) {
         let expression = AWSS3TransferUtilityDownloadExpression()
         expression.progressBlock = {(task, progress) in DispatchQueue.main.async(execute: {
             // Do something e.g. Update a progress bar.
@@ -85,8 +91,8 @@ class MobileBackendAPI {
             DispatchQueue.main.async(execute: {
                 // Do something e.g. Alert a user for transfer completion.
                 // On failed downloads, `error` contains the error object.
-                let responseString =  String(data:data!, encoding: .utf8)
-                recievedDataLabel.text = responseString
+//                let responseString =  String(data:data!, encoding: .utf8)
+//                recievedDataLabel.text = responseString
                 print("Download Successful")
             })
         }

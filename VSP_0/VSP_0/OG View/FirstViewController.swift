@@ -24,7 +24,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     //Data To pass to the video clip options and metadata view controller.
     //This is updated whenever a tableviewcell is clicked by the user.
-    var videoURLToPass:URL = URL(fileURLWithPath: "")
+    var videoMetaDataToPass = VideoMetaData()
     
     //UIScrollView
     @IBOutlet weak var tableViewOfVideos: UITableView!
@@ -174,7 +174,7 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             //Deselects the selected cell after it is clicked by the user.
             tableView.deselectRow(at: index, animated: true)
             //Storing the video url of the videoclipcell that was clicked on by the user.
-            videoURLToPass = model.videosMetaData[indexPath.row].videoURLPath
+            videoMetaDataToPass = model.videosMetaData[indexPath.row]
             //Programmatically calling the segue. This segue is connected from
             //"self" vc to the about-to-be presented vc in the storyboard.
             performSegue(withIdentifier: "SegueToVideoDataAndActions", sender: self)
@@ -189,8 +189,10 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         //whatnot will be presented at. The user is also able to do the video
         //playback from the video url that is being passed to the view controller.
         if (segue.identifier == "SegueToVideoDataAndActions") {
-            if let destinationViewController = segue.destination as? SendDataToLambdaViewController {
-                destinationViewController.videoURL = videoURLToPass
+            if let destinationViewController = segue.destination as? VideoClipOptionsViewController {
+                //Passing over the data.
+                destinationViewController.videoURL = videoMetaDataToPass.videoURLPath
+                destinationViewController.thumbnail = videoMetaDataToPass.thumbnail
                 self.present(destinationViewController, animated: true, completion: nil)
             }
         }

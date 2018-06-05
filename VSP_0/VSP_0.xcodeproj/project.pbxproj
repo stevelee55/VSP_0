@@ -11,7 +11,7 @@
 		86927BB5F2B3170CBC28416A /* Pods_VSP_0UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D209AB41C2A3580F276C855 /* Pods_VSP_0UITests.framework */; };
 		9D38067C20B7584000F5A0A3 /* VideoMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D38067B20B7584000F5A0A3 /* VideoMetaData.swift */; };
 		9D38067E20B866CC00F5A0A3 /* VideoAppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D38067D20B866CC00F5A0A3 /* VideoAppModel.swift */; };
-		9D38068220BC7D3800F5A0A3 /* SendDataToLambdaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D38068120BC7D3800F5A0A3 /* SendDataToLambdaViewController.swift */; };
+		9D38068220BC7D3800F5A0A3 /* VideoClipOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D38068120BC7D3800F5A0A3 /* VideoClipOptionsViewController.swift */; };
 		9D38068820BDBC1F00F5A0A3 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 9D38068720BDBC1F00F5A0A3 /* awsconfiguration.json */; };
 		9D4A6C9D20AC837400080C0D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4A6C9C20AC837400080C0D /* AppDelegate.swift */; };
 		9D4A6C9F20AC837400080C0D /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4A6C9E20AC837400080C0D /* FirstViewController.swift */; };
@@ -22,8 +22,8 @@
 		9D4A6CB420AC837600080C0D /* VSP_0Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4A6CB320AC837600080C0D /* VSP_0Tests.swift */; };
 		9D4A6CBF20AC837600080C0D /* VSP_0UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4A6CBE20AC837600080C0D /* VSP_0UITests.swift */; };
 		9D4A6CCF20AE184200080C0D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4A6CCE20AE184100080C0D /* CameraViewController.swift */; };
-		9D4A6D0E20B4977A00080C0D /* VideoClipOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4A6D0D20B4977A00080C0D /* VideoClipOptionsViewController.swift */; };
 		9D4A6D1020B4981C00080C0D /* VideoClipCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4A6D0F20B4981C00080C0D /* VideoClipCell.swift */; };
+		9D7B666B20C6BB44001C694F /* AWSPrepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7B666A20C6BB44001C694F /* AWSPrepper.swift */; };
 		9DE39EC220BF094D005C8301 /* AWSAPI_TSYAQ88K2E_RequestSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE39EBC20BF094D005C8301 /* AWSAPI_TSYAQ88K2E_RequestSchema.m */; };
 		9DE39EC320BF094D005C8301 /* AWSAPI_TSYAQ88K2E_VSPMobileHubClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE39EBD20BF094D005C8301 /* AWSAPI_TSYAQ88K2E_VSPMobileHubClient.m */; };
 		9DE39EC420BF094D005C8301 /* AWSAPI_TSYAQ88K2E_ResponseSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE39EBE20BF094D005C8301 /* AWSAPI_TSYAQ88K2E_ResponseSchema.m */; };
@@ -58,7 +58,7 @@
 		9799B2B13721A37401CFD6FF /* Pods-VSP_0Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VSP_0Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-VSP_0Tests/Pods-VSP_0Tests.release.xcconfig"; sourceTree = "<group>"; };
 		9D38067B20B7584000F5A0A3 /* VideoMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMetaData.swift; sourceTree = "<group>"; };
 		9D38067D20B866CC00F5A0A3 /* VideoAppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoAppModel.swift; sourceTree = "<group>"; };
-		9D38068120BC7D3800F5A0A3 /* SendDataToLambdaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendDataToLambdaViewController.swift; sourceTree = "<group>"; };
+		9D38068120BC7D3800F5A0A3 /* VideoClipOptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoClipOptionsViewController.swift; sourceTree = "<group>"; };
 		9D38068720BDBC1F00F5A0A3 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		9D4A6C9920AC837400080C0D /* VSP_0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VSP_0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D4A6C9C20AC837400080C0D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -75,8 +75,8 @@
 		9D4A6CBE20AC837600080C0D /* VSP_0UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VSP_0UITests.swift; sourceTree = "<group>"; };
 		9D4A6CC020AC837600080C0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D4A6CCE20AE184100080C0D /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
-		9D4A6D0D20B4977A00080C0D /* VideoClipOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoClipOptionsViewController.swift; sourceTree = "<group>"; };
 		9D4A6D0F20B4981C00080C0D /* VideoClipCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoClipCell.swift; sourceTree = "<group>"; };
+		9D7B666A20C6BB44001C694F /* AWSPrepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSPrepper.swift; sourceTree = "<group>"; };
 		9DE39EBC20BF094D005C8301 /* AWSAPI_TSYAQ88K2E_RequestSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWSAPI_TSYAQ88K2E_RequestSchema.m; sourceTree = "<group>"; };
 		9DE39EBD20BF094D005C8301 /* AWSAPI_TSYAQ88K2E_VSPMobileHubClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWSAPI_TSYAQ88K2E_VSPMobileHubClient.m; sourceTree = "<group>"; };
 		9DE39EBE20BF094D005C8301 /* AWSAPI_TSYAQ88K2E_ResponseSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWSAPI_TSYAQ88K2E_ResponseSchema.m; sourceTree = "<group>"; };
@@ -192,9 +192,9 @@
 				9D4A6C9E20AC837400080C0D /* FirstViewController.swift */,
 				9D38067B20B7584000F5A0A3 /* VideoMetaData.swift */,
 				9D38067D20B866CC00F5A0A3 /* VideoAppModel.swift */,
-				9D4A6D0D20B4977A00080C0D /* VideoClipOptionsViewController.swift */,
 				9D4A6D0F20B4981C00080C0D /* VideoClipCell.swift */,
-				9D38068120BC7D3800F5A0A3 /* SendDataToLambdaViewController.swift */,
+				9D38068120BC7D3800F5A0A3 /* VideoClipOptionsViewController.swift */,
+				9D7B666A20C6BB44001C694F /* AWSPrepper.swift */,
 			);
 			path = "OG View";
 			sourceTree = "<group>";
@@ -460,11 +460,11 @@
 				9D4A6D1020B4981C00080C0D /* VideoClipCell.swift in Sources */,
 				9D38067E20B866CC00F5A0A3 /* VideoAppModel.swift in Sources */,
 				9D4A6CCF20AE184200080C0D /* CameraViewController.swift in Sources */,
+				9D7B666B20C6BB44001C694F /* AWSPrepper.swift in Sources */,
 				9D4A6C9D20AC837400080C0D /* AppDelegate.swift in Sources */,
-				9D38068220BC7D3800F5A0A3 /* SendDataToLambdaViewController.swift in Sources */,
+				9D38068220BC7D3800F5A0A3 /* VideoClipOptionsViewController.swift in Sources */,
 				9DE39EC720BF0B59005C8301 /* MobileBackendAPI.swift in Sources */,
 				9DE39EC420BF094D005C8301 /* AWSAPI_TSYAQ88K2E_ResponseSchema.m in Sources */,
-				9D4A6D0E20B4977A00080C0D /* VideoClipOptionsViewController.swift in Sources */,
 				9D4A6C9F20AC837400080C0D /* FirstViewController.swift in Sources */,
 				9DE39EC320BF094D005C8301 /* AWSAPI_TSYAQ88K2E_VSPMobileHubClient.m in Sources */,
 			);
