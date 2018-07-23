@@ -56,7 +56,13 @@ class AWSPrepper:UIViewController {
     //This is done after the user configures everything and everything is setup.
     @IBAction func sendDataToAWS(_ sender: Any) {
         //Getting the frame as an image from the video url.
-        let data: Data = getNthFrameAsImageData(nth: 10, videoURL: videoMetaData.videoURLPath)
+        var data: Data = Data()
+        do {
+             data = try Data(contentsOf: videoMetaData.videoURLPath)
+            
+        } catch {
+            
+        } //getNthFrameAsImageData(nth: 10, videoURL: videoMetaData.videoURLPath)
         //Attempting to upload the data AWS S3.
         if  !(api.uploadData(progressBar: uploadToAWSProgressBar, dataToUpload: data)) {
             //Internet not available alert.

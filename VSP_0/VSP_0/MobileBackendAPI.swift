@@ -11,6 +11,7 @@ import AWSAuthCore
 import AWSCore
 import AWSAPIGateway
 import AWSMobileClient
+import Photos
 
 //For checking internect connection.
 import SystemConfiguration
@@ -67,7 +68,7 @@ class MobileBackendAPI {
             //Content Type lists: http://www.iana.org/assignments/media-types/media-types.xhtml
             transferUtility.uploadData(dataToUpload,
                                        bucket: bucketName,
-                                       key: "helloWorldFile",
+                                       key: "PRPCA_RAW.mov",
                                        contentType: "text/plain",
                                        expression: expression,
                                        completionHandler: completionHandler).continueWith {
@@ -99,6 +100,10 @@ class MobileBackendAPI {
             let expression = AWSS3TransferUtilityDownloadExpression()
             expression.progressBlock = {(task, progress) in DispatchQueue.main.async(execute: {
                 // Do something e.g. Update a progress bar.
+                DispatchQueue.main.async(execute: {
+                    // Do something e.g. Update a progress bar.
+                    progressBar.progress = Float(progress.fractionCompleted)
+                })
                 print("Downloaded: \(progress)")
             })
             }
@@ -112,6 +117,46 @@ class MobileBackendAPI {
                     // On failed downloads, `error` contains the error object.
     //                let responseString =  String(data:data!, encoding: .utf8)
     //                recievedDataLabel.text = responseString
+                    let downloadedDataToSave:Data = Data(data!)
+                   // let test = UIImage(data: downloadedDataToSave)
+                    PHPhotoLibrary.shared().performChanges({
+                        PHAssetCreationRequest.forAsset().addResource(with: .photo, data: downloadedDataToSave, options: nil)
+                        
+                    })
+                    
+//                    UIImageWriteToSavedPhotosAlbum(test!, nil, nil, nil)
+                    
+//                    PHPhotoLibrary.shared().performChanges({
+//                        
+//                       
+//                        let assetRequest = PHAssetChangeRequest.creationRequestForAssetFromImage(atFileURL: URL!)
+//                        let assetPlaceholder = assetRequest?.placeholderForCreatedAsset
+//                        
+//                        let albumChangeRequest = PHAssetChangeRequest(for: assetRequest)//PHAssetCollectionChangeRequest(forAssetCollection: self.assetCollection, assets: self.photosAsset)
+//                        albumChangeRequest!.addAssets([assetPlaceholder!])
+//                        
+//                        
+//                        let option:PHAssetResourceCreationOptions = PHAssetResourceCreationOptions()
+//
+//                        
+//              
+//                        
+//                        PHAssetCreationRequest().addResource(with: PHAssetResourceType.photo, data: downloadedDataToSave, options: option)
+//
+//                        NSString *path = [[NSBundle mainBundle] pathForResource:@"1" ofType:@"gif"];
+//                        NSData *data = [NSData dataWithContentsOfFile:path];
+//                        
+//                            PHAssetResourceCreationOptions *options = [[PHAssetResourceCreationOptions alloc] init];
+//                            [[PHAssetCreationRequest creationRequestForAsset] addResourceWithType:PHAssetResourceTypePhoto data:data options:options];
+//                            
+//
+//
+//                        //(PHAssetCreationRequest.creationRequestForAssetFromImage(atFileURL: URL!)!)
+//
+//
+//                    })
+                    
+                    
                     print("Download Successful")
                 })
             }
@@ -119,8 +164,9 @@ class MobileBackendAPI {
             //Later change the permission for the s3 buckets.
             let transferUtility = AWSS3TransferUtility.default()
             //This is for getting the notification when the download is complete.
-            transferUtility.downloadData(fromBucket: bucketName, key: "helloWorldFile", expression: expression, completionHandler: completionHandler).continueWith { (task) -> Any? in
+            transferUtility.downloadData(fromBucket: bucketName, key: "PRPCA_Finished.gif", expression: expression, completionHandler: completionHandler).continueWith { (task) -> Any? in
                 if let error = task.error {
+                    print("RIPPPP")
                     print("Error: \(error.localizedDescription)")
                 }
                 if let _ = task.result {

@@ -24,6 +24,7 @@
 		9D4A6CCF20AE184200080C0D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4A6CCE20AE184100080C0D /* CameraViewController.swift */; };
 		9D4A6D1020B4981C00080C0D /* VideoClipCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4A6D0F20B4981C00080C0D /* VideoClipCell.swift */; };
 		9D7B666B20C6BB44001C694F /* AWSPrepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7B666A20C6BB44001C694F /* AWSPrepper.swift */; };
+		9DB7663821066DB400F763C4 /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB7663721066DB400F763C4 /* UIImage+Gif.swift */; };
 		9DE39EC220BF094D005C8301 /* AWSAPI_TSYAQ88K2E_RequestSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE39EBC20BF094D005C8301 /* AWSAPI_TSYAQ88K2E_RequestSchema.m */; };
 		9DE39EC320BF094D005C8301 /* AWSAPI_TSYAQ88K2E_VSPMobileHubClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE39EBD20BF094D005C8301 /* AWSAPI_TSYAQ88K2E_VSPMobileHubClient.m */; };
 		9DE39EC420BF094D005C8301 /* AWSAPI_TSYAQ88K2E_ResponseSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE39EBE20BF094D005C8301 /* AWSAPI_TSYAQ88K2E_ResponseSchema.m */; };
@@ -77,6 +78,7 @@
 		9D4A6CCE20AE184100080C0D /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		9D4A6D0F20B4981C00080C0D /* VideoClipCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoClipCell.swift; sourceTree = "<group>"; };
 		9D7B666A20C6BB44001C694F /* AWSPrepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWSPrepper.swift; sourceTree = "<group>"; };
+		9DB7663721066DB400F763C4 /* UIImage+Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Gif.swift"; sourceTree = "<group>"; };
 		9DE39EBC20BF094D005C8301 /* AWSAPI_TSYAQ88K2E_RequestSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWSAPI_TSYAQ88K2E_RequestSchema.m; sourceTree = "<group>"; };
 		9DE39EBD20BF094D005C8301 /* AWSAPI_TSYAQ88K2E_VSPMobileHubClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWSAPI_TSYAQ88K2E_VSPMobileHubClient.m; sourceTree = "<group>"; };
 		9DE39EBE20BF094D005C8301 /* AWSAPI_TSYAQ88K2E_ResponseSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWSAPI_TSYAQ88K2E_ResponseSchema.m; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 		9D4A6C9B20AC837400080C0D /* VSP_0 */ = {
 			isa = PBXGroup;
 			children = (
+				9DB7663721066DB400F763C4 /* UIImage+Gif.swift */,
 				9D4A6C9C20AC837400080C0D /* AppDelegate.swift */,
 				9DE39EC620BF0B59005C8301 /* MobileBackendAPI.swift */,
 				9DE39EC520BF098B005C8301 /* Bridging_Header.h */,
@@ -456,6 +459,7 @@
 			files = (
 				9D38067C20B7584000F5A0A3 /* VideoMetaData.swift in Sources */,
 				9DE39EC220BF094D005C8301 /* AWSAPI_TSYAQ88K2E_RequestSchema.m in Sources */,
+				9DB7663821066DB400F763C4 /* UIImage+Gif.swift in Sources */,
 				9D4A6CA120AC837400080C0D /* SecondViewController.swift in Sources */,
 				9D4A6D1020B4981C00080C0D /* VideoClipCell.swift in Sources */,
 				9D38067E20B866CC00F5A0A3 /* VideoAppModel.swift in Sources */,
@@ -643,7 +647,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 67MX9PD557;
 				INFOPLIST_FILE = VSP_0/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -664,7 +668,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 67MX9PD557;
 				INFOPLIST_FILE = VSP_0/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -72,7 +72,7 @@ class VideoAppModel: NSObject {
             }
             //Getting the initial uiimage.
             thumbnail = UIImage(cgImage: frameRef)
-            thumbnail = imageWithImage(image: thumbnail, newSize: CGSize(width: 126.22, height: 71))
+            thumbnail = imageWithImage(image: thumbnail, newSize: CGSize(width: 502, height: 334))
         } catch {
             print("Frame cannot be captured.")
         }
